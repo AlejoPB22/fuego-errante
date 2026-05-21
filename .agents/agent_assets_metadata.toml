@@ -1,0 +1,56 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "QI8CSMqI8BFvFkOfbchle"
+uri = "file://artifacts/fuego-errante/public/images/mateo.png"
+type = "image"
+title = "Mateo El Errante Vidal portrait"
+
+[[generated]]
+id = "m-uBjXrJAT7hacimRt4sB"
+uri = "file://artifacts/fuego-errante/public/images/lucia.png"
+type = "image"
+title = "Lucia Bullaranga portrait"
+
+[[generated]]
+id = "RCYhNVCWoS_Edx08r939N"
+uri = "file://artifacts/fuego-errante/public/images/salomon.png"
+type = "image"
+title = "Don Salomon Cruz portrait"
+
+[[generated]]
+id = "_RFXsM1zVuqjBoqc4HHfu"
+uri = "file://artifacts/fuego-errante/public/images/tomas.png"
+type = "image"
+title = "Tomas Polvora Mejia portrait"
+
+[[generated]]
+id = "Y2M7tDF5ySIZMzcrFOiGj"
+uri = "file://artifacts/fuego-errante/public/images/jacket.png"
+type = "image"
+title = "Leather jacket product photo"
+
+[[generated]]
+id = "5NNyxMViVTg-Tr9Mj0SJ1"
+uri = "file://artifacts/fuego-errante/public/images/hat.png"
+type = "image"
+title = "Cowboy hat product photo"
+
+[[generated]]
+id = "lsgKBSi5_lyfu9Q8kd0JX"
+uri = "file://artifacts/fuego-errante/public/images/boots.png"
+type = "image"
+title = "Cowboy boots product photo"
+
+[[generated]]
+id = "LNmP0HKqAAouTw23dTTl9"
+uri = "file://artifacts/fuego-errante/public/images/guitar.png"
+type = "image"
+title = "Electric guitar product photo"
+
+[[generated]]
+id = "v5dvpggDgQybw5S9eUyaY"
+uri = "file://artifacts/fuego-errante/public/images/souvenirs.png"
+type = "image"
+title = "Souvenirs pack product photo"

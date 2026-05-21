@@ -1,44 +1,60 @@
-# [Project name]
+# FUEGO ERRANTE — Official Website
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Ultra-premium single-page official website and merch store for the Latin Rock Cowboy band FUEGO ERRANTE, blending western rock with Colombian roots (cumbia, bullarengue) and social activism.
 
 ## Run & Operate
 
+- `pnpm --filter @workspace/fuego-errante run dev` — run the frontend (port assigned by workflow)
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS, Framer Motion
+- Fonts: Rye (headings), Special Elite (body) — via Google Fonts
+- UI: shadcn/ui components, Radix UI
+- Routing: wouter (single-page, single route)
+- No backend required — all state is client-side
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/fuego-errante/src/pages/Home.tsx` — main single-page layout (all 5 sections)
+- `artifacts/fuego-errante/src/components/` — Nav, Hero, Band, Merch, Tour, Footer, CartDrawer, TicketModal
+- `artifacts/fuego-errante/src/context/CartContext.tsx` — shopping cart global state
+- `artifacts/fuego-errante/src/index.css` — brand theme, Google Fonts imports, CSS variables
+- `attached_assets/` — reference design images and brand manual PDF
 
-## Architecture decisions
+## Brand Colors
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- `#1A1A1A` Black Polvo — background
+- `#A31621` Rojo Fuego — primary accent, buttons, glows
+- `#EAE0D5` Blanco Sucio — main text
+- `#B0813D` Dorado Bronce — subtitles, borders, price tags
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+5 immersive sections on a single scrollable page:
+1. **Hero (The Horizon)** — cinematic landing with dust particle animation, red horizon glow, CTA buttons
+2. **La Manada** — band member cards with hover-reveal quotes and AI-generated portraits
+3. **El Almacén Errante** — premium merch store with cart drawer (Chaqueta, Sombrero, Botas, Guitarra, Souvenirs)
+4. **Ruta de Fuego Tour** — countdown timer to next show + tour dates table with ticket purchase modal
+5. **El Pacto** — newsletter signup + social links footer
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Language: Spanish UI copy throughout
+- Brand-strict: Always use exact hex colors (#1A1A1A, #A31621, #EAE0D5, #B0813D)
+- Typography: Rye for headings, Special Elite for body/nav
+- No emojis in UI
+- Dark theme only
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Google Fonts `@import url(...)` MUST be the very first line in `index.css` — PostCSS fails silently otherwise
+- All cart and ticket state is local React state (no backend)
+- Images generated via AI and embedded directly — no external placeholder services
 
 ## Pointers
 
