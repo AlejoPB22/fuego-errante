@@ -38,7 +38,7 @@ export function Nav() {
         </div>
 
         <div className="hidden md:flex items-center gap-8 font-mono text-sm tracking-widest text-foreground">
-          {["BANDA", "ALMACÉN", "TOUR", "PACTO"].map((item) => (
+          {["SINGLE", "BANDA", "ALMACÉN", "TOUR", "PACTO"].map((item) => (
             <button
               key={item}
               onClick={() => scrollTo(item.toLowerCase())}

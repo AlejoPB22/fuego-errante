@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Play } from "lucide-react";
+import heroBg from "@assets/hero-horizon_1779347335996.jpeg";
 
 export function HeroSection() {
   const scrollTo = (id: string) => {
@@ -11,21 +12,17 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Hero background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      {/* Dark overlay so text stays readable */}
+      <div className="absolute inset-0 bg-black/55" />
+      {/* Red horizon glow at the bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#A31621]/30 to-transparent pointer-events-none" />
+
       <div className="hero-particles" />
-      
-      {/* Abstract Background SVGs */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-          <polygon points="0,100 100,100 100,80 80,90 60,75 40,85 20,70 0,90" fill="#000" />
-          <circle cx="50" cy="100" r="40" fill="url(#sun-glow)" opacity="0.5" />
-          <defs>
-            <radialGradient id="sun-glow" cx="50%" cy="100%" r="50%">
-              <stop offset="0%" stopColor="#A31621" />
-              <stop offset="100%" stopColor="transparent" />
-            </radialGradient>
-          </defs>
-        </svg>
-      </div>
 
       <div className="container relative z-10 px-4 md:px-8 text-center flex flex-col items-center">
         <motion.div
@@ -49,24 +46,32 @@ export function HeroSection() {
         </motion.p>
 
         <motion.div 
-          className="flex flex-col sm:flex-row items-center gap-6"
+          className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <button 
+            onClick={() => scrollTo("single")}
+            className="flex items-center gap-3 px-8 py-4 bg-[#A31621] text-[#EAE0D5] font-mono font-bold tracking-widest hover:bg-[#c01a28] hover:shadow-[0_0_28px_rgba(163,22,33,0.8)] transition-all duration-300"
+            data-testid="hero-single-btn"
+          >
+            <Play className="w-4 h-4 fill-current" />
+            ESCUCHAR EL SINGLE
+          </button>
+          <button 
             onClick={() => scrollTo("almacén")}
-            className="px-8 py-4 bg-primary text-primary-foreground font-mono font-bold tracking-widest hover:bg-primary/90 hover:shadow-[0_0_20px_rgba(163,22,33,0.6)] transition-all duration-300"
+            className="px-8 py-4 border-2 border-[#EAE0D5] text-[#EAE0D5] font-mono font-bold tracking-widest bg-black/30 hover:bg-[#EAE0D5]/10 transition-all duration-300"
             data-testid="hero-merch-btn"
           >
             EXPLORAR MERCH
           </button>
           <button 
             onClick={() => scrollTo("tour")}
-            className="px-8 py-4 border border-primary text-foreground font-mono font-bold tracking-widest hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(163,22,33,0.4)] hover:border-primary transition-all duration-300 relative overflow-hidden group"
+            className="px-8 py-4 border-2 border-[#A31621] text-[#EAE0D5] font-mono font-bold tracking-widest bg-black/30 hover:bg-[#A31621]/20 hover:shadow-[0_0_20px_rgba(163,22,33,0.5)] transition-all duration-300"
             data-testid="hero-tickets-btn"
           >
-            <span className="relative z-10">COMPRAR TICKETS</span>
+            COMPRAR TICKETS
           </button>
         </motion.div>
 
