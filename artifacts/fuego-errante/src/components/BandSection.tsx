@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Guitar, Mic, Drum, Music } from "lucide-react";
 
@@ -56,6 +56,15 @@ const members = [
 export function BandSection() {
   const [selected, setSelected] = useState<typeof members[0] | null>(null);
 
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selected]);
+
   return (
     <section id="banda" className="py-24 bg-card relative z-10">
       <div className="container mx-auto px-4 md:px-8">
@@ -86,19 +95,12 @@ export function BandSection() {
               className="group relative aspect-[3/4] overflow-hidden border border-[#B0813D]/40 bg-black cursor-pointer"
               data-testid={`band-member-${member.id}`}
             >
-              {/* background image */}
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-60"
                 style={{ backgroundImage: `url(${member.image})` }}
               />
-
-              {/* hover red overlay */}
               <div className="absolute inset-0 bg-[#A31621]/0 group-hover:bg-[#A31621]/20 transition-all duration-500" />
-
-              {/* gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-
-              {/* border glow on hover */}
               <div className="absolute inset-0 border-2 border-[#A31621]/0 group-hover:border-[#A31621]/70 transition-all duration-400 pointer-events-none" />
 
               <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
@@ -108,31 +110,14 @@ export function BandSection() {
                     VER MÁS
                   </span>
                 </div>
-
                 <div>
                   <h3 className="font-serif text-xl text-[#EAE0D5] mb-1 group-hover:text-[#A31621] transition-colors duration-300">
                     {member.name}
                   </h3>
                   <div className="font-mono text-xs text-[#B0813D] mb-3 tracking-widest">{member.role}</div>
-
-                  <div
-                    className="font-mono text-sm text-[#EAE0D5]/90 italic leading-relaxed overflow-hidden transition-all duration-500"
-                    style={{
-                      maxHeight: 0,
-                      opacity: 0,
-                    }}
-                    ref={(el) => {
-                      if (!el) return;
-                      const parent = el.closest(".group");
-                      if (!parent) return;
-                      const onEnter = () => { el.style.maxHeight = "80px"; el.style.opacity = "1"; };
-                      const onLeave = () => { el.style.maxHeight = "0"; el.style.opacity = "0"; };
-                      parent.addEventListener("mouseenter", onEnter);
-                      parent.addEventListener("mouseleave", onLeave);
-                    }}
-                  >
+                  <p className="font-mono text-sm text-[#EAE0D5]/90 italic leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-3">
                     "{member.quote}"
-                  </div>
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -140,7 +125,6 @@ export function BandSection() {
         </div>
       </div>
 
-      {/* Expanded Member Modal */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -150,7 +134,6 @@ export function BandSection() {
             exit={{ opacity: 0 }}
             onClick={() => setSelected(null)}
           >
-            {/* backdrop */}
             <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
 
             <motion.div
@@ -165,7 +148,6 @@ export function BandSection() {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* close */}
               <button
                 onClick={() => setSelected(null)}
                 className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center border border-[#B0813D]/40 text-[#EAE0D5]/60 hover:text-[#EAE0D5] hover:border-[#B0813D] transition-all"
@@ -175,7 +157,6 @@ export function BandSection() {
               </button>
 
               <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* Image panel */}
                 <div className="relative min-h-[320px] md:min-h-[500px]">
                   <div
                     className="absolute inset-0 bg-cover bg-center"
@@ -183,33 +164,21 @@ export function BandSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/80 hidden md:block" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 to-transparent md:hidden" />
-
-                  {/* Number badge */}
                   <div className="absolute top-6 left-6 font-serif text-6xl text-[#A31621]/30 select-none">
                     {selected.id}
                   </div>
                 </div>
 
-                {/* Info panel */}
                 <div className="p-8 md:p-10 flex flex-col justify-center gap-6">
                   <div>
-                    <p className="font-mono text-xs tracking-[0.25em] text-[#B0813D] uppercase mb-2">
-                      {selected.origin}
-                    </p>
-                    <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight">
-                      {selected.name}
-                    </h2>
+                    <p className="font-mono text-xs tracking-[0.25em] text-[#B0813D] uppercase mb-2">{selected.origin}</p>
+                    <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight">{selected.name}</h2>
                     <p className="font-mono text-sm tracking-widest text-[#B0813D]">{selected.role}</p>
                   </div>
-
                   <blockquote className="border-l-2 border-[#A31621] pl-4">
-                    <p className="font-mono text-base text-[#EAE0D5]/90 italic leading-relaxed">
-                      "{selected.quote}"
-                    </p>
+                    <p className="font-mono text-base text-[#EAE0D5]/90 italic leading-relaxed">"{selected.quote}"</p>
                   </blockquote>
-
                   <p className="font-mono text-sm text-[#EAE0D5]/70 leading-relaxed">{selected.bio}</p>
-
                   <div className="space-y-3">
                     <div>
                       <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-1">Instrumento</p>
@@ -219,10 +188,7 @@ export function BandSection() {
                       <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-2">Influencias</p>
                       <div className="flex flex-wrap gap-2">
                         {selected.influences.map((inf) => (
-                          <span
-                            key={inf}
-                            className="font-mono text-[10px] tracking-widest text-[#EAE0D5]/60 border border-[#EAE0D5]/20 px-3 py-1"
-                          >
+                          <span key={inf} className="font-mono text-[10px] tracking-widest text-[#EAE0D5]/60 border border-[#EAE0D5]/20 px-3 py-1">
                             {inf}
                           </span>
                         ))}
