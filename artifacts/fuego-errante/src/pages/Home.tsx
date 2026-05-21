@@ -2,6 +2,7 @@ import { Nav } from "@/components/Nav";
 import { HeroSection } from "@/components/HeroSection";
 import { SingleSection } from "@/components/SingleSection";
 import { BandSection } from "@/components/BandSection";
+import { RaicesSection } from "@/components/RaicesSection";
 import { MerchSection } from "@/components/MerchSection";
 import { TourSection } from "@/components/TourSection";
 import { FooterSection } from "@/components/FooterSection";
@@ -16,6 +17,7 @@ export default function Home() {
       <MarqueeBanner variant="primary" direction="left" />
       <SingleSection />
       <BandSection />
+      <RaicesSection />
       <MarqueeBanner variant="secondary" direction="right" />
       <MerchSection />
       <TourSection />
