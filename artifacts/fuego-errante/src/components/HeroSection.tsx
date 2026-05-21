@@ -76,7 +76,7 @@ export function HeroSection() {
         </motion.div>
 
         <motion.div 
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer"
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 cursor-pointer"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           onClick={() => scrollTo("banda")}
