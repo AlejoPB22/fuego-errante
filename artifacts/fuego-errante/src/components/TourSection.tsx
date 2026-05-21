@@ -49,10 +49,10 @@ export function TourSection() {
           <h2 className="font-serif text-4xl md:text-6xl text-foreground text-center md:text-left">Próximas Paradas</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           
-          {/* Countdown Left */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          {/* Countdown Left — sticky so it follows the scroll through all dates */}
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
             <div className="font-mono text-secondary mb-6 text-center lg:text-left tracking-widest text-sm">
               PRÓXIMO SHOW EN BOGOTÁ, CO
             </div>
@@ -65,7 +65,7 @@ export function TourSection() {
                 { label: "SEG", value: timeLeft.seconds }
               ].map((unit, i) => (
                 <div key={i} className="flex flex-col items-center p-4 bg-background border border-secondary/40 rounded-sm">
-                  <div className="font-serif text-3xl md:text-5xl text-primary mb-2 shadow-primary/20 drop-shadow-md">
+                  <div className="font-serif text-3xl md:text-5xl text-primary mb-2 drop-shadow-md">
                     {unit.value.toString().padStart(2, '0')}
                   </div>
                   <div className="font-mono text-xs text-foreground/70">{unit.label}</div>
