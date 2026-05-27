@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Play, Pause, ExternalLink } from "lucide-react";
 
 const TOTAL_DURATION = 217;
-const PREVIEW_END = 30;
 
 const WAVEFORM_BARS = Array.from({ length: 80 }, (_, i) => {
   const center = 40;
@@ -21,40 +20,65 @@ function formatTime(s: number) {
 export function SingleSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const elapsed = progress * TOTAL_DURATION;
+  const [duration, setDuration] = useState(TOTAL_DURATION);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (isPlaying) {
-      intervalRef.current = setInterval(() => {
-        setProgress((p) => {
-          const next = p + 1 / TOTAL_DURATION;
-          if (next >= PREVIEW_END / TOTAL_DURATION) {
-            setIsPlaying(false);
-            return PREVIEW_END / TOTAL_DURATION;
-          }
-          return next;
-        });
-      }, 1000);
-    } else {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+    const audio = new Audio(`${import.meta.env.BASE_URL}media/cancion.mp3`);
+    audioRef.current = audio;
+
+    const handleTimeUpdate = () => {
+      if (audio.duration) {
+        setProgress(audio.currentTime / audio.duration);
+      }
     };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setProgress(0);
+      audio.currentTime = 0;
+    };
+
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.pause();
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.play().catch((err) => {
+        console.error("Audio playback failed:", err);
+        setIsPlaying(false);
+      });
+    } else {
+      audioRef.current.pause();
+    }
   }, [isPlaying]);
 
+  const elapsed = progress * duration;
+
   const handlePlayPause = () => {
-    if (progress >= PREVIEW_END / TOTAL_DURATION) {
-      setProgress(0);
-    }
-    setIsPlaying((p) => !p);
+    setIsPlaying((prev) => !prev);
   };
 
   const handleWaveformClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const ratio = (e.clientX - rect.left) / rect.width;
-    const clamped = Math.min(ratio, PREVIEW_END / TOTAL_DURATION);
+    const clamped = Math.max(0, Math.min(1, ratio));
+    audioRef.current.currentTime = clamped * duration;
     setProgress(clamped);
   };
 
@@ -96,7 +120,7 @@ export function SingleSection() {
           >
             {/* Track info */}
             <p className="font-mono text-xs tracking-[0.2em] text-[#B0813D] mb-2">
-              // TRACK 001 · SOY MAJO
+              // TRACK 001 · Fuego Errante
             </p>
             <h3 className="font-serif text-3xl md:text-4xl text-[#EAE0D5] mb-4">
               Fuego Errante
@@ -144,7 +168,7 @@ export function SingleSection() {
             {/* Time */}
             <div className="flex justify-between font-mono text-xs text-[#EAE0D5]/50 mb-8">
               <span>{formatTime(elapsed)}</span>
-              <span>{formatTime(TOTAL_DURATION)}</span>
+              <span>{formatTime(duration)}</span>
             </div>
 
             {/* Controls */}
@@ -166,7 +190,7 @@ export function SingleSection() {
                   Reproducción Local
                 </span>
                 <span className="font-mono text-xs text-[#EAE0D5]/50">
-                  Vista previa · maestra completa en streaming
+                  Audio oficial · Maestra completa
                 </span>
               </div>
 

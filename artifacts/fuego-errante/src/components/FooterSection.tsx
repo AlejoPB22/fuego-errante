@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function FooterSection() {
   return (
-    <footer id="pacto" className="bg-background pt-24 pb-12 border-t border-secondary border-b-[8px] border-b-primary relative">
+    <footer id="rebelión" className="bg-background pt-24 pb-12 border-t border-secondary border-b-[8px] border-b-primary relative">
       <div className="container mx-auto px-4 md:px-8 text-center max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -10,7 +10,7 @@ export function FooterSection() {
           viewport={{ once: true }}
         >
           <div className="font-mono text-secondary tracking-[0.3em] text-sm mb-4">
-            EL PACTO
+            La Rebelión
           </div>
           <h2 className="font-serif text-5xl md:text-7xl text-foreground mb-6">
             Únete a la Rebelión
@@ -19,17 +19,17 @@ export function FooterSection() {
             Recibe las próximas paradas, lanzamientos y manifiestos sonoros directo desde la carretera.
           </p>
 
-          <form 
+          <form
             className="flex flex-col sm:flex-row gap-4 justify-center mb-24"
             onSubmit={(e) => { e.preventDefault(); alert("Pacto sellado."); }}
           >
-            <input 
-              type="email" 
-              placeholder="tu@correo.com" 
+            <input
+              type="email"
+              placeholder="tu@correo.com"
               required
               className="bg-card border border-secondary/50 text-foreground font-mono px-6 py-4 focus:outline-none focus:border-primary w-full sm:w-96"
             />
-            <button 
+            <button
               type="submit"
               className="bg-primary text-primary-foreground font-mono font-bold tracking-widest px-8 py-4 hover:bg-primary/90 hover:shadow-[0_0_15px_rgba(163,22,33,0.6)] transition-all"
             >
