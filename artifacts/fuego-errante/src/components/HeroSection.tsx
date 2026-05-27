@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
-import heroBg from "@assets/hero-horizon_1779347335996.jpeg";
 
 export function HeroSection() {
   const scrollTo = (id: string) => {
@@ -15,7 +14,7 @@ export function HeroSection() {
       {/* Hero background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        style={{ backgroundImage: `url("/images/hero-horizon_1779347335996.jpeg")` }}
       />
       {/* Dark overlay so text stays readable */}
       <div className="absolute inset-0 bg-black/55" />
@@ -74,16 +73,16 @@ export function HeroSection() {
             COMPRAR TICKETS
           </button>
         </motion.div>
-
-        <motion.div 
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 cursor-pointer"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          onClick={() => scrollTo("banda")}
-        >
-          <ChevronDown className="w-8 h-8 text-secondary opacity-70" />
-        </motion.div>
       </div>
+
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer z-10"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        onClick={() => scrollTo("banda")}
+      >
+        <ChevronDown className="w-8 h-8 text-[#B0813D] opacity-80 hover:opacity-100 hover:scale-110 transition-all" />
+      </motion.div>
 
       {/* Adding actual particles to DOM for the CSS animation */}
       {Array.from({ length: 20 }).map((_, i) => (

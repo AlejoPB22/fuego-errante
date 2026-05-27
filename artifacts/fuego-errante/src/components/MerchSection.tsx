@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ShoppingCart, Star } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -158,119 +159,122 @@ export function MerchSection() {
       </div>
 
       {/* Product Detail Modal */}
-      <AnimatePresence>
-        {selected && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelected(null)}
-          >
-            <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
-
+      {createPortal(
+        <AnimatePresence>
+          {selected && (
             <motion.div
-              className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm border border-[#B0813D]/40"
-              style={{
-                background: "linear-gradient(135deg, #1a1a1a 0%, #110507 100%)",
-                boxShadow: "0 0 80px rgba(163,22,33,0.2)",
-              }}
-              initial={{ opacity: 0, scale: 0.92, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 40 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelected(null)}
             >
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center border border-[#B0813D]/40 text-[#EAE0D5]/60 hover:text-[#EAE0D5] hover:border-[#B0813D] transition-all"
-                data-testid="merch-modal-close"
+              <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
+
+              <motion.div
+                className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm border border-[#B0813D]/40"
+                style={{
+                  background: "linear-gradient(135deg, #1a1a1a 0%, #110507 100%)",
+                  boxShadow: "0 0 80px rgba(163,22,33,0.2)",
+                }}
+                initial={{ opacity: 0, scale: 0.92, y: 40 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 40 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="w-5 h-5" />
-              </button>
+                <button
+                  onClick={() => setSelected(null)}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center border border-[#B0813D]/40 text-[#EAE0D5]/60 hover:text-[#EAE0D5] hover:border-[#B0813D] transition-all"
+                  data-testid="merch-modal-close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
 
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                {/* Image */}
-                <div className="relative min-h-[300px] md:min-h-[480px] border-b md:border-b-0 md:border-r border-[#B0813D]/20">
-                  <img
-                    src={selected.image}
-                    alt={selected.name}
-                    className="absolute inset-0 w-full h-full object-cover opacity-90"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/60 hidden md:block" />
-                  <div className="absolute top-4 left-4">
-                    <span className="font-mono text-[10px] tracking-widest text-[#EAE0D5] bg-[#A31621] px-2 py-1">
-                      {selected.badge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-8 md:p-10 flex flex-col gap-5">
-                  <div>
-                    <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight pr-8">{selected.name}</h2>
-                    <div className="flex items-center gap-2 mb-3">
-                      {[1,2,3,4,5].map(s => <Star key={s} className="w-3.5 h-3.5 fill-[#B0813D] text-[#B0813D]" />)}
-                      <span className="font-mono text-xs text-[#EAE0D5]/50 ml-1">(Artículo certificado)</span>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  {/* Image */}
+                  <div className="relative min-h-[300px] md:min-h-[480px] border-b md:border-b-0 md:border-r border-[#B0813D]/20">
+                    <img
+                      src={selected.image}
+                      alt={selected.name}
+                      className="absolute inset-0 w-full h-full object-cover opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/60 hidden md:block" />
+                    <div className="absolute top-4 left-4">
+                      <span className="font-mono text-[10px] tracking-widest text-[#EAE0D5] bg-[#A31621] px-2 py-1">
+                        {selected.badge}
+                      </span>
                     </div>
-                    <p className="font-serif text-3xl text-[#B0813D] font-bold">${selected.price} <span className="font-mono text-sm text-[#EAE0D5]/40 font-normal">USD</span></p>
                   </div>
 
-                  <p className="font-mono text-sm text-[#EAE0D5]/70 leading-relaxed">{selected.longDescription}</p>
-
-                  {/* Size selector */}
-                  {selected.sizes.length > 1 && (
+                  {/* Info */}
+                  <div className="p-8 md:p-10 flex flex-col gap-5">
                     <div>
-                      <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-2">
-                        Talla — <span className="text-[#EAE0D5]/60">{selectedSize}</span>
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {selected.sizes.map((size) => (
-                          <button
-                            key={size}
-                            onClick={() => setSelectedSize(size)}
-                            className="font-mono text-xs px-3 py-2 border transition-all duration-200"
-                            style={{
-                              borderColor: selectedSize === size ? "#A31621" : "#B0813D40",
-                              background: selectedSize === size ? "#A31621" : "transparent",
-                              color: selectedSize === size ? "#EAE0D5" : "#EAE0D5AA",
-                            }}
-                            data-testid={`size-btn-${size}`}
-                          >
-                            {size}
-                          </button>
-                        ))}
+                      <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight pr-8">{selected.name}</h2>
+                      <div className="flex items-center gap-2 mb-3">
+                        {[1,2,3,4,5].map(s => <Star key={s} className="w-3.5 h-3.5 fill-[#B0813D] text-[#B0813D]" />)}
+                        <span className="font-mono text-xs text-[#EAE0D5]/50 ml-1">(Artículo certificado)</span>
                       </div>
+                      <p className="font-serif text-3xl text-[#B0813D] font-bold">${selected.price} <span className="font-mono text-sm text-[#EAE0D5]/40 font-normal">USD</span></p>
                     </div>
-                  )}
 
-                  <div className="border-t border-[#B0813D]/20 pt-4">
-                    <p className="font-mono text-[10px] tracking-widest text-[#B0813D]/60 uppercase mb-1">Cuidado</p>
-                    <p className="font-mono text-xs text-[#EAE0D5]/50">{selected.care}</p>
-                  </div>
+                    <p className="font-mono text-sm text-[#EAE0D5]/70 leading-relaxed">{selected.longDescription}</p>
 
-                  <div className="flex flex-col gap-3 mt-auto pt-2">
-                    <button
-                      onClick={() => handleAddToCart(selected)}
-                      className="w-full py-4 bg-[#A31621] text-[#EAE0D5] font-mono font-bold tracking-widest hover:bg-[#c01a28] hover:shadow-[0_0_20px_rgba(163,22,33,0.6)] transition-all duration-300 flex items-center justify-center gap-3"
-                      data-testid="merch-modal-add-cart"
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                      AÑADIR AL CARRITO
-                    </button>
-                    <button
-                      onClick={() => setSelected(null)}
-                      className="w-full py-3 border border-[#B0813D]/40 text-[#EAE0D5]/60 font-mono text-sm tracking-widest hover:border-[#B0813D] hover:text-[#EAE0D5] transition-all duration-200"
-                    >
-                      SEGUIR EXPLORANDO
-                    </button>
+                    {/* Size selector */}
+                    {selected.sizes.length > 1 && (
+                      <div>
+                        <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-2">
+                          Talla — <span className="text-[#EAE0D5]/60">{selectedSize}</span>
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {selected.sizes.map((size) => (
+                            <button
+                              key={size}
+                              onClick={() => setSelectedSize(size)}
+                              className="font-mono text-xs px-3 py-2 border transition-all duration-200"
+                              style={{
+                                borderColor: selectedSize === size ? "#A31621" : "#B0813D40",
+                                background: selectedSize === size ? "#A31621" : "transparent",
+                                color: selectedSize === size ? "#EAE0D5" : "#EAE0D5AA",
+                              }}
+                              data-testid={`size-btn-${size}`}
+                            >
+                              {size}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="border-t border-[#B0813D]/20 pt-4">
+                      <p className="font-mono text-[10px] tracking-widest text-[#B0813D]/60 uppercase mb-1">Cuidado</p>
+                      <p className="font-mono text-xs text-[#EAE0D5]/50">{selected.care}</p>
+                    </div>
+
+                    <div className="flex flex-col gap-3 mt-auto pt-2">
+                      <button
+                        onClick={() => handleAddToCart(selected)}
+                        className="w-full py-4 bg-[#A31621] text-[#EAE0D5] font-mono font-bold tracking-widest hover:bg-[#c01a28] hover:shadow-[0_0_20px_rgba(163,22,33,0.6)] transition-all duration-300 flex items-center justify-center gap-3"
+                        data-testid="merch-modal-add-cart"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        AÑADIR AL CARRITO
+                      </button>
+                      <button
+                        onClick={() => setSelected(null)}
+                        className="w-full py-3 border border-[#B0813D]/40 text-[#EAE0D5]/60 font-mono text-sm tracking-widest hover:border-[#B0813D] hover:text-[#EAE0D5] transition-all duration-200"
+                      >
+                        SEGUIR EXPLORANDO
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

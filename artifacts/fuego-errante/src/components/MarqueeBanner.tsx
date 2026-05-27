@@ -15,10 +15,15 @@ const repeated = [...items, ...items, ...items];
 
 interface MarqueeBannerProps {
   direction?: "left" | "right";
+  variant?: "primary" | "secondary";
 }
 
-export function MarqueeBanner({ direction = "left" }: MarqueeBannerProps) {
+export function MarqueeBanner({ direction = "left", variant = "primary" }: MarqueeBannerProps) {
   const isLeft = direction === "left";
+  const isPrimary = variant === "primary";
+  
+  const textColor = isPrimary ? "#B0813D" : "#EAE0D5";
+  const dotColor = isPrimary ? "#A31621" : "#B0813D";
 
   return (
     <div
@@ -34,12 +39,12 @@ export function MarqueeBanner({ direction = "left" }: MarqueeBannerProps) {
           <span
             key={i}
             className="font-mono text-xs tracking-[0.3em] uppercase select-none flex items-center gap-8"
-            style={{ color: "#B0813D" }}
+            style={{ color: textColor }}
           >
             {item}
             <span
               className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
-              style={{ background: "#A31621" }}
+              style={{ background: dotColor }}
             />
           </span>
         ))}

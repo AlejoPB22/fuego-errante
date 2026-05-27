@@ -171,13 +171,13 @@ export function SingleSection() {
               </div>
 
               <a
-                href="https://open.spotify.com"
+                href="https://www.mureka.ai/song-detail/Gh8XY1xmjVt5iavRub8geA?is_from_share=1&song_title=fuego-errante&singer=soy-majo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-auto flex items-center gap-2 font-mono text-xs tracking-widest font-bold text-[#EAE0D5] bg-[#A31621] px-5 py-3 hover:bg-[#c01a28] hover:shadow-[0_0_16px_rgba(163,22,33,0.5)] transition-all duration-300 whitespace-nowrap"
                 data-testid="single-stream-btn"
               >
-                STREAM OFICIAL
+                ESCUCHAR EN MUREKA
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

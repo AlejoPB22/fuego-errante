@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Guitar, Mic, Drum, Music } from "lucide-react";
+import { X, Guitar, Mic, Drum, Music, ChevronLeft, ChevronRight } from "lucide-react";
 
 const members = [
   {
@@ -8,7 +8,13 @@ const members = [
     name: "Mateo 'El Errante' Vidal",
     role: "Voz / Guitarra Líder",
     quote: "La música es el único camino donde los perdidos se encuentran.",
-    image: "/images/mateo.png",
+    image: "/images/team/mateo.jpeg",
+    images: [
+      "/images/team/mateo.jpeg",
+      "/images/team/mateo 2.jpeg",
+      "/images/team/mateo 3.jpeg",
+      "/images/team/mateo 4.jpeg"
+    ],
     icon: Guitar,
     origin: "Valledupar, Colombia",
     instrument: "Gibson ES-335 modificada con slide de cuello de botella",
@@ -18,11 +24,18 @@ const members = [
   {
     id: "02",
     name: "Lucía Bullaranga",
-    role: "Voz / Tambora / Acordeón",
+    role: "Voz / Guitarra Electrica",
     quote: "El bullarengue me enseñó que el ritmo es resistencia.",
-    image: "/images/lucia.png",
+    image: "/images/team/lucia.jpeg",
+    images: [
+      "/images/team/lucia.jpeg",
+      "/images/team/lucia 2.jpeg",
+      "/images/team/lucia 3.jpeg",
+      "/images/team/lucia 4.jpeg",
+      "/images/team/lucia 5.jpeg"
+    ],
     icon: Mic,
-    origin: "María La Baja, Bolívar",
+    origin: "Barranquilla, Atlántico",
     instrument: "Tambora ancestral y acordeón diatónico Victoria",
     bio: "Nieta de cantadoras de bullarengue del Caribe colombiano, Lucía aprendió a cantar antes de aprender a leer. Su voz combina la potencia del rock con la cadencia del Pacífico. Activista por los derechos de las comunidades afrocolombianas, sus versos son manifiestos disfrazados de canciones de amor.",
     influences: ["Petrona Martínez", "Janis Joplin", "Shakira (era Laundry Service)"],
@@ -32,7 +45,14 @@ const members = [
     name: "Don Salomón Cruz",
     role: "Bajo / Gaita",
     quote: "Con cada nota bajo de las montañas de Colombia al escenario.",
-    image: "/images/salomon.png",
+    image: "/images/team/salomon.jpeg",
+    images: [
+      "/images/team/salomon.jpeg",
+      "/images/team/salomon 2.jpeg",
+      "/images/team/salomon 3.jpeg",
+      "/images/team/salomon 4.jpeg",
+      "/images/team/salomon 5.jpeg"
+    ],
     icon: Music,
     origin: "Mompox, Bolívar",
     instrument: "Bajo Fender Precision '72 y gaita hembra artesanal",
@@ -42,9 +62,12 @@ const members = [
   {
     id: "04",
     name: "Tomás 'Pólvora' Mejía",
-    role: "Producción / Timbales / Alegría",
+    role: "Producción / Timbales / Percusión",
     quote: "El fuego que no quema es el que no arde de verdad.",
-    image: "/images/tomas.png",
+    image: "/images/team/tomas.png",
+    images: [
+      "/images/team/tomas.png"
+    ],
     icon: Drum,
     origin: "Medellín, Antioquia",
     instrument: "Kit DW Collector's Series + timbales cubanos",
@@ -53,12 +76,17 @@ const members = [
   },
 ];
 
+import { createPortal } from "react-dom";
+
+// ... existing code ...
 export function BandSection() {
   const [selected, setSelected] = useState<typeof members[0] | null>(null);
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
 
   useEffect(() => {
     if (selected) {
       document.body.style.overflow = "hidden";
+      setActiveImageIdx(0);
     } else {
       document.body.style.overflow = "";
     }
@@ -97,7 +125,7 @@ export function BandSection() {
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-60"
-                style={{ backgroundImage: `url(${member.image})` }}
+                style={{ backgroundImage: `url("${member.image}")` }}
               />
               <div className="absolute inset-0 bg-[#A31621]/0 group-hover:bg-[#A31621]/20 transition-all duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
@@ -125,82 +153,136 @@ export function BandSection() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {selected && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelected(null)}
-          >
-            <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
-
+      {createPortal(
+        <AnimatePresence>
+          {selected && (
             <motion.div
-              className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm border border-[#B0813D]/40"
-              style={{
-                background: "linear-gradient(135deg, #1f0a0b 0%, #1A1A1A 50%, #0d0203 100%)",
-                boxShadow: "0 0 80px rgba(163,22,33,0.25)",
-              }}
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelected(null)}
             >
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center border border-[#B0813D]/40 text-[#EAE0D5]/60 hover:text-[#EAE0D5] hover:border-[#B0813D] transition-all"
-                data-testid="band-modal-close"
+              <div className="absolute inset-0 bg-black/85 backdrop-blur-md" />
+
+              <motion.div
+                className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm border border-[#B0813D]/40"
+                style={{
+                  background: "linear-gradient(135deg, #1f0a0b 0%, #1A1A1A 50%, #0d0203 100%)",
+                  boxShadow: "0 0 80px rgba(163,22,33,0.25)",
+                }}
+                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="w-5 h-5" />
-              </button>
+                <button
+                  onClick={() => setSelected(null)}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center border border-[#B0813D]/40 text-[#EAE0D5]/60 hover:text-[#EAE0D5] hover:border-[#B0813D] transition-all"
+                  data-testid="band-modal-close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
 
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="relative min-h-[320px] md:min-h-[500px]">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${selected.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/80 hidden md:block" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/90 to-transparent md:hidden" />
-                  <div className="absolute top-6 left-6 font-serif text-6xl text-[#A31621]/30 select-none">
-                    {selected.id}
-                  </div>
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="relative min-h-[320px] md:min-h-[500px] flex flex-col justify-between overflow-hidden group/gallery pb-16 md:pb-20">
+                    {/* Gallery Active Image */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeImageIdx}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 bg-cover bg-center"
+                        style={{ backgroundImage: `url("${selected.images && selected.images[activeImageIdx] ? selected.images[activeImageIdx] : selected.image}")` }}
+                      />
+                    </AnimatePresence>
 
-                <div className="p-8 md:p-10 flex flex-col justify-center gap-6">
-                  <div>
-                    <p className="font-mono text-xs tracking-[0.25em] text-[#B0813D] uppercase mb-2">{selected.origin}</p>
-                    <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight">{selected.name}</h2>
-                    <p className="font-mono text-sm tracking-widest text-[#B0813D]">{selected.role}</p>
-                  </div>
-                  <blockquote className="border-l-2 border-[#A31621] pl-4">
-                    <p className="font-mono text-base text-[#EAE0D5]/90 italic leading-relaxed">"{selected.quote}"</p>
-                  </blockquote>
-                  <p className="font-mono text-sm text-[#EAE0D5]/70 leading-relaxed">{selected.bio}</p>
-                  <div className="space-y-3">
-                    <div>
-                      <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-1">Instrumento</p>
-                      <p className="font-mono text-sm text-[#EAE0D5]/80">{selected.instrument}</p>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/80 hidden md:block pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/95 to-transparent md:hidden pointer-events-none" />
+
+                    {/* Watermark ID */}
+                    <div className="absolute top-6 left-6 font-serif text-6xl text-[#A31621]/30 select-none z-10">
+                      {selected.id}
                     </div>
+
+                    {/* Navigation Arrows & Dots if multiple images */}
+                    {selected.images && selected.images.length > 1 && (
+                      <>
+                        {/* Left Arrow */}
+                        <button
+                          onClick={() => setActiveImageIdx((prev) => (prev === 0 ? selected.images.length - 1 : prev - 1))}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-[#B0813D]/40 text-[#EAE0D5] hover:bg-[#A31621] hover:border-[#EAE0D5] hover:text-white hover:scale-105 transition-all duration-200"
+                          aria-label="Imagen anterior"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+
+                        {/* Right Arrow */}
+                        <button
+                          onClick={() => setActiveImageIdx((prev) => (prev === selected.images.length - 1 ? 0 : prev + 1))}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 border border-[#B0813D]/40 text-[#EAE0D5] hover:bg-[#A31621] hover:border-[#EAE0D5] hover:text-white hover:scale-105 transition-all duration-200"
+                          aria-label="Siguiente imagen"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+
+                        {/* Thumbnail indicators */}
+                        <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2 px-4">
+                          {selected.images.map((img, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setActiveImageIdx(idx)}
+                              className={`w-12 h-12 border-2 transition-all duration-300 overflow-hidden bg-black ${
+                                activeImageIdx === idx
+                                  ? "border-[#A31621] scale-110 shadow-[0_0_12px_rgba(163,22,33,0.9)]"
+                                  : "border-[#B0813D]/40 opacity-70 hover:opacity-100"
+                              }`}
+                            >
+                              <img src={img} alt={`Miniatura ${idx + 1}`} className="w-full h-full object-cover" />
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="p-8 md:p-10 flex flex-col justify-center gap-6">
                     <div>
-                      <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-2">Influencias</p>
-                      <div className="flex flex-wrap gap-2">
-                        {selected.influences.map((inf) => (
-                          <span key={inf} className="font-mono text-[10px] tracking-widest text-[#EAE0D5]/60 border border-[#EAE0D5]/20 px-3 py-1">
-                            {inf}
-                          </span>
-                        ))}
+                      <p className="font-mono text-xs tracking-[0.25em] text-[#B0813D] uppercase mb-2">{selected.origin}</p>
+                      <h2 className="font-serif text-2xl md:text-3xl text-[#EAE0D5] mb-2 leading-tight">{selected.name}</h2>
+                      <p className="font-mono text-sm tracking-widest text-[#B0813D]">{selected.role}</p>
+                    </div>
+                    <blockquote className="border-l-2 border-[#A31621] pl-4">
+                      <p className="font-mono text-base text-[#EAE0D5]/90 italic leading-relaxed">"{selected.quote}"</p>
+                    </blockquote>
+                    <p className="font-mono text-sm text-[#EAE0D5]/70 leading-relaxed">{selected.bio}</p>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-1">Instrumento</p>
+                        <p className="font-mono text-sm text-[#EAE0D5]/80">{selected.instrument}</p>
+                      </div>
+                      <div>
+                        <p className="font-mono text-[10px] tracking-widest text-[#B0813D] uppercase mb-2">Influencias</p>
+                        <div className="flex flex-wrap gap-2">
+                          {selected.influences.map((inf) => (
+                            <span key={inf} className="font-mono text-[10px] tracking-widest text-[#EAE0D5]/60 border border-[#EAE0D5]/20 px-3 py-1">
+                              {inf}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
