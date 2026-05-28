@@ -64,9 +64,13 @@ const members = [
     name: "Tomás 'Pólvora' Mejía",
     role: "Producción / Timbales / Percusión",
     quote: "El fuego que no quema es el que no arde de verdad.",
-    image: "/images/team/tomas.png",
+    image: "/images/team/tomas.jpeg",
     images: [
-      "/images/team/tomas.png"
+      "/images/team/tomas.jpeg",
+      "/images/team/tomas 2.jpeg",
+      "/images/team/tomas 3.jpeg",
+      "/images/team/tomas 4.jpeg",
+      "/images/team/tomas 5.jpeg"
     ],
     icon: Drum,
     origin: "Medellín, Antioquia",
