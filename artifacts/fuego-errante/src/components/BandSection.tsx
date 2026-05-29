@@ -17,8 +17,8 @@ const members = [
     ],
     icon: Guitar,
     origin: "Valledupar, Colombia",
-    instrument: "Gibson ES-335 modificada con slide de cuello de botella",
-    bio: "Mateo creció escuchando las gaitas de su abuelo en el Cesar antes de descubrir el rock a los 14 años en una cinta de casete mojada. Pasó una década entre Bogotá y Austin perfeccionando su técnica de slide, fusionando el groove del blues con la urgencia del vallenato. Líder espiritual de la banda, sus letras hablan de desarraigo, amor y resistencia política.",
+    instrument: "Gibson ES-335 modificada con slide de cuello de botella y micrófono Shure SM58",
+    bio: "Mateo creció escuchando las gaitas de su abuelo en el Cesar antes de descubrir el rock a los 14 años en una cinta de casete mojada. Pasó una década entre Bogotá y Austin perfeccionando su canto y su técnica de slide, fusionando el groove del blues con la urgencia del vallenato. Líder espiritual de la banda, sus letras hablan de desarraigo, amor y resistencia política.",
     influences: ["Santana", "Totó La Momposina", "Stevie Ray Vaughan"],
   },
   {
@@ -36,8 +36,8 @@ const members = [
     ],
     icon: Mic,
     origin: "Barranquilla, Atlántico",
-    instrument: "Tambora ancestral y acordeón diatónico Victoria",
-    bio: "Nieta de cantadoras de bullarengue del Caribe colombiano, Lucía aprendió a cantar antes de aprender a leer. Su voz combina la potencia del rock con la cadencia del Pacífico. Activista por los derechos de las comunidades afrocolombianas, sus versos son manifiestos disfrazados de canciones de amor.",
+    instrument: "Guitarra eléctrica Fender Stratocaster '78 y micrófono Shure Super 55",
+    bio: "Nieta de cantadoras de bullarengue del Caribe colombiano, Lucía aprendió a cantar y a tocar la guitarra eléctrica antes de aprender a leer. Su voz combina la potencia del rock con la cadencia del Pacífico. Activista por los derechos de las comunidades afrocolombianas, sus versos son manifiestos disfrazados de canciones de amor.",
     influences: ["Petrona Martínez", "Janis Joplin", "Shakira (era Laundry Service)"],
   },
   {
@@ -62,7 +62,7 @@ const members = [
   {
     id: "04",
     name: "Tomás 'Pólvora' Mejía",
-    role: "Producción / Timbales / Percusión",
+    role: "Batería / Producción / Percusión",
     quote: "El fuego que no quema es el que no arde de verdad.",
     image: "/images/team/tomas.jpeg",
     images: [
@@ -74,11 +74,12 @@ const members = [
     ],
     icon: Drum,
     origin: "Medellín, Antioquia",
-    instrument: "Kit DW Collector's Series + timbales cubanos",
-    bio: "El más joven y el más explosivo. Tomás estudió producción electrónica en Medellín antes de darse cuenta de que el mejor sintetizador es la membrana de un tambor. En vivo lleva dos baterías simultáneas — una acústica y una electrónica — creando polirritmos que hacen colapsar el piso. Fuera del escenario diseña visuales y produce para artistas de toda América Latina.",
+    instrument: "Batería (Kit DW Collector's Series), timbales cubanos y sampler Roland SP-404",
+    bio: "El más joven y el más explosivo. Tomás estudió producción electrónica y batería en Medellín antes de darse cuenta de que el mejor sintetizador es la membrana de un tambor. En vivo lleva dos baterías simultáneas — una acústica y una electrónica — creando polirritmos que hacen colapsar el piso. Fuera del escenario diseña visuales y produce para artistas de toda América Latina.",
     influences: ["John Bonham", "Óscar D'León", "Skrillex (lo odia pero lo admira)"],
   },
 ];
+
 
 import { createPortal } from "react-dom";
 

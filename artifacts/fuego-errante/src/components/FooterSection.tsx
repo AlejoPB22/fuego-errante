@@ -33,7 +33,7 @@ export function FooterSection() {
               type="submit"
               className="bg-primary text-primary-foreground font-mono font-bold tracking-widest px-8 py-4 hover:bg-primary/90 hover:shadow-[0_0_15px_rgba(163,22,33,0.6)] transition-all"
             >
-              SELLAR PACTO
+              Únete a la Rebelión
             </button>
           </form>
 
